@@ -62,7 +62,7 @@
         <jaxb.version>2.3.1</jaxb.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <snowflake.version>1.0.1.b</snowflake.version>
-        <subgrade.version>beta-0.2.0.a</subgrade.version>
+        <subgrade.version>beta-0.2.1.a-SNAPSHOT</subgrade.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
@@ -419,5 +419,6 @@
         <module>account-keeper-stack</module>
         <module>account-keeper-impl</module>
         <module>account-keeper-node</module>
+        <module>account-keeper-api</module>
     </modules>
 </project>
