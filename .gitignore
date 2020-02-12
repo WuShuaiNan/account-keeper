@@ -52,7 +52,13 @@ buildNumber.properties
 #################
 ## Logger Files
 #################
+/account-keeper-node/logs/
+/account-keeper-impl/logs/
+/account-keeper-api/logs/
 
 #################
 ## Configuration Files
 #################
+/account-keeper-node/conf/
+/account-keeper-impl/conf/
+/account-keeper-api/conf/
