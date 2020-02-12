@@ -7,7 +7,7 @@
     <parent>
         <artifactId>account-keeper</artifactId>
         <groupId>com.dwarfeng</groupId>
-        <version>alpha-0.0.1.a</version>
+        <version>1.0.0.a</version>
     </parent>
 
     <artifactId>account-keeper-node</artifactId>
@@ -164,7 +164,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
                 <configuration>
                     <archive>  
                         <manifest>  

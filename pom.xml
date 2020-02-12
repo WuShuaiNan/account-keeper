@@ -6,7 +6,7 @@
 
     <groupId>com.dwarfeng</groupId>
     <artifactId>account-keeper</artifactId>
-    <version>alpha-0.0.1.a</version>
+    <version>1.0.0.a</version>
 
     <packaging>pom</packaging>
 
@@ -68,6 +68,7 @@
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
+        <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
     </properties>
 
     <!-- 声明资源的坐标 -->
@@ -395,22 +396,22 @@
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>account-keeper-stack</artifactId>
-                <version>alpha-0.0.1.a</version>
+                <version>1.0.0.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>account-keeper-sdk</artifactId>
-                <version>alpha-0.0.1.a</version>
+                <version>1.0.0.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>account-keeper-impl</artifactId>
-                <version>alpha-0.0.1.a</version>
+                <version>1.0.0.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>account-keeper-node</artifactId>
-                <version>alpha-0.0.1.a</version>
+                <version>1.0.0.a</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
