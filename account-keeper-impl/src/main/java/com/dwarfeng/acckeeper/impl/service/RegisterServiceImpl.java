@@ -39,7 +39,7 @@ public class RegisterServiceImpl implements RegisterService {
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager")
     public Account register(@NotNull RegisterInfo registerInfo) throws ServiceException {
-        LOGGER.info("注册新用户 ID=" + registerInfo.getId() + " ...");
+        LOGGER.info("注册新账户 ID=" + registerInfo.getId() + " ...");
         StringIdKey stringIdKey = new StringIdKey(registerInfo.getId());
         try {
             if (accountMaintainService.exists(stringIdKey)) {
@@ -55,7 +55,7 @@ public class RegisterServiceImpl implements RegisterService {
                     0
             );
             accountMaintainService.insert(account);
-            LOGGER.info("用户已成功注册: " + account.toString() + " ...");
+            LOGGER.info("账户已成功注册: " + account.toString() + " ...");
             return account;
         } catch (Exception e) {
             throw sem.map(e);
@@ -68,31 +68,31 @@ public class RegisterServiceImpl implements RegisterService {
     public Account updatePassword(PasswordInfo passwordInfo) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(passwordInfo.getId());
         try {
-            LOGGER.info("用户 " + passwordInfo.getId() + " 请求更改密码...");
+            LOGGER.info("账户 " + passwordInfo.getId() + " 请求更改密码...");
             /*
-             * 1. 验证用户是否存在。
-             * 2. 验证用户的旧密码是否正确。
-             * 3. 将用户的密码设置为新密码，并更新用户。
-             * 4. 返回更新后的用户。
+             * 1. 验证账户是否存在。
+             * 2. 验证账户的旧密码是否正确。
+             * 3. 将账户的密码设置为新密码，并更新账户。
+             * 4. 返回更新后的账户。
              */
-            //1. 验证用户是否存在。
+            //1. 验证账户是否存在。
             if (!accountMaintainService.exists(stringIdKey)) {
                 LOGGER.warn("指定的id " + passwordInfo.getId() + " 不存在，更改密码失败，将抛出异常...");
                 throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
             }
-            //2. 验证用户的旧密码是否正确。
-            //获取用户的详细信息。
+            //2. 验证账户的旧密码是否正确。
+            //获取账户的详细信息。
             Account account = accountMaintainService.get(stringIdKey);
             if (BCrypt.checkpw(passwordInfo.getOldPassword(), account.getPassword())) {
-                LOGGER.info("用户 ID=" + account.getKey().getStringId() + " 密码验证成功，将更新密码...");
+                LOGGER.info("账户 ID=" + account.getKey().getStringId() + " 密码验证成功，将更新密码...");
             } else {
-                LOGGER.warn("用户 ID=" + account.getKey().getStringId() + " 密码验证失败，将会抛出异常...");
+                LOGGER.warn("账户 ID=" + account.getKey().getStringId() + " 密码验证失败，将会抛出异常...");
                 throw new ServiceException(ServiceExceptionCodes.WRONG_PASSWORD);
             }
-            //3. 将用户的密码设置为新密码，并更新用户。
+            //3. 将账户的密码设置为新密码，并更新账户。
             account.setPassword(BCrypt.hashpw(passwordInfo.getNewPassword(), BCrypt.gensalt(logRounds)));
             accountMaintainService.update(account);
-            //4. 返回更新后的用户。
+            //4. 返回更新后的账户。
             return account;
         } catch (Exception e) {
             throw sem.map(e);
@@ -105,23 +105,23 @@ public class RegisterServiceImpl implements RegisterService {
     public Account forceUpdatePassword(ForcePasswordInfo forcePasswordInfo) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(forcePasswordInfo.getId());
         try {
-            LOGGER.info("用户 " + forcePasswordInfo.getId() + " 请求强制性更改密码...");
+            LOGGER.info("账户 " + forcePasswordInfo.getId() + " 请求强制性更改密码...");
             /*
-             * 1. 验证用户是否存在。
-             * 2. 将用户的密码设置为新密码，并更新用户。
-             * 3. 返回更新后的用户。
+             * 1. 验证账户是否存在。
+             * 2. 将账户的密码设置为新密码，并更新账户。
+             * 3. 返回更新后的账户。
              */
-            //1. 验证用户是否存在。
+            //1. 验证账户是否存在。
             if (!accountMaintainService.exists(stringIdKey)) {
                 LOGGER.warn("指定的id " + forcePasswordInfo.getId() + " 不存在存在，更改密码失败，将抛出异常...");
                 throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
             }
-            //2. 将用户的密码设置为新密码，并更新用户。
-            //获取用户的详细信息。
+            //2. 将账户的密码设置为新密码，并更新账户。
+            //获取账户的详细信息。
             Account account = accountMaintainService.get(stringIdKey);
             account.setPassword(BCrypt.hashpw(forcePasswordInfo.getNewPassword(), BCrypt.gensalt(logRounds)));
             accountMaintainService.update(account);
-            //3. 返回更新后的用户。
+            //3. 返回更新后的账户。
             return account;
         } catch (Exception e) {
             throw sem.map(e);
@@ -134,24 +134,24 @@ public class RegisterServiceImpl implements RegisterService {
     public Account updateAccountInfo(AccountInfo accountInfo) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(accountInfo.getId());
         try {
-            LOGGER.info("用户 " + accountInfo.getId() + " 请求强制性更改密码...");
+            LOGGER.info("账户 " + accountInfo.getId() + " 请求强制性更改密码...");
             /*
-             * 1. 验证用户是否存在。
-             * 2. 设置用户信息为指定的信息，并更新用户。
-             * 3. 返回更新后的用户。
+             * 1. 验证账户是否存在。
+             * 2. 设置账户信息为指定的信息，并更新账户。
+             * 3. 返回更新后的账户。
              */
-            //1. 验证用户是否存在。
+            //1. 验证账户是否存在。
             if (!accountMaintainService.exists(stringIdKey)) {
                 LOGGER.warn("指定的id " + accountInfo.getId() + " 不存在存在，更改密码失败，将抛出异常...");
                 throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
             }
-            //2. 设置用户信息为指定的信息，并更新用户。
-            //获取用户的详细信息。
+            //2. 设置账户信息为指定的信息，并更新账户。
+            //获取账户的详细信息。
             Account account = accountMaintainService.get(stringIdKey);
             account.setEnabled(account.getEnabled());
             account.setRemark(accountInfo.getRemark());
             accountMaintainService.update(account);
-            //3. 返回更新后的用户。
+            //3. 返回更新后的账户。
             return account;
         } catch (Exception e) {
             throw sem.map(e);
@@ -164,24 +164,24 @@ public class RegisterServiceImpl implements RegisterService {
     public boolean checkPassword(String accountId, String password) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(accountId);
         try {
-            LOGGER.info("用户 " + accountId + " 查询密码是否正确...");
+            LOGGER.info("账户 " + accountId + " 查询密码是否正确...");
             /*
-             * 1. 验证用户是否存在。
-             * 2. 验证用户的密码是否正确，并返回结果。
+             * 1. 验证账户是否存在。
+             * 2. 验证账户的密码是否正确，并返回结果。
              */
-            //1. 验证用户是否存在。
+            //1. 验证账户是否存在。
             if (!accountMaintainService.exists(stringIdKey)) {
                 LOGGER.warn("指定的id " + accountId + " 不存在，密码验证失败，将抛出异常...");
                 throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
             }
-            //2. 验证用户的密码是否正确，并返回结果。
-            //获取用户的详细信息。
+            //2. 验证账户的密码是否正确，并返回结果。
+            //获取账户的详细信息。
             Account account = accountMaintainService.get(stringIdKey);
             if (BCrypt.checkpw(password, account.getPassword())) {
-                LOGGER.info("用户 ID=" + account.getKey().getStringId() + " 密码验证成功...");
+                LOGGER.info("账户 ID=" + account.getKey().getStringId() + " 密码验证成功...");
                 return true;
             } else {
-                LOGGER.warn("用户 ID=" + account.getKey().getStringId() + " 密码验证失败...");
+                LOGGER.warn("账户 ID=" + account.getKey().getStringId() + " 密码验证失败...");
                 return false;
             }
         } catch (Exception e) {

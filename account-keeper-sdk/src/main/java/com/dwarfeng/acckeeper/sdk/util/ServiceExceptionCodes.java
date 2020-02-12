@@ -13,11 +13,11 @@ import static com.dwarfeng.acckeeper.sdk.util.Constants.EXCEPTION_CODE_OFFSET;
 public final class ServiceExceptionCodes {
 
     /**
-     * 用户已经存在。
+     * 账户已经存在。
      */
     public static final ServiceException.Code ACCOUNT_ALREADY_EXISTED = new ServiceException.Code(EXCEPTION_CODE_OFFSET, "user already existed");
     /**
-     * 用户不存在。
+     * 账户不存在。
      */
     public static final ServiceException.Code ACCOUNT_NOT_EXISTS = new ServiceException.Code(EXCEPTION_CODE_OFFSET + 10, "user not exists");
     /**
