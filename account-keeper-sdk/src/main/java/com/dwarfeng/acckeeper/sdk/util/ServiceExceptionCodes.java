@@ -23,15 +23,15 @@ public final class ServiceExceptionCodes {
     /**
      * 密码错误。
      */
-    public static final ServiceException.Code WRONG_PASSWORD = new ServiceException.Code(520, "wrong password");
+    public static final ServiceException.Code WRONG_PASSWORD = new ServiceException.Code(EXCEPTION_CODE_OFFSET + 20, "wrong password");
     /**
      * 登录超时。
      */
-    public static final ServiceException.Code LOGIN_EXPIRED = new ServiceException.Code(EXCEPTION_CODE_OFFSET + 20, "login expired");
+    public static final ServiceException.Code LOGIN_EXPIRED = new ServiceException.Code(EXCEPTION_CODE_OFFSET + 30, "login expired");
     /**
      * 登录过期。
      */
-    public static final ServiceException.Code LOGIN_OUTDATED = new ServiceException.Code(EXCEPTION_CODE_OFFSET + 30, "login outdated");
+    public static final ServiceException.Code LOGIN_OUTDATED = new ServiceException.Code(EXCEPTION_CODE_OFFSET + 40, "login outdated");
 
     private ServiceExceptionCodes() {
         throw new IllegalStateException("禁止实例化");
