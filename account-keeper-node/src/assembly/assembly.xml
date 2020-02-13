@@ -76,11 +76,13 @@
             <source>src/assembly/acckeeper-start.sh</source>
             <filtered>true</filtered>
             <fileMode>0755</fileMode>
+            <lineEnding>unix</lineEnding>
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
             <source>src/assembly/acckeeper-stop.sh</source>
             <fileMode>0755</fileMode>
+            <lineEnding>unix</lineEnding>
         </file>
     </files>
 </assembly>
