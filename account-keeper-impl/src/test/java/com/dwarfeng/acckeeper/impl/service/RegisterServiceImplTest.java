@@ -28,7 +28,6 @@ public class RegisterServiceImplTest {
     public void register() throws ServiceException {
         RegisterInfo registerInfo = new RegisterInfo(
                 "root",
-                "ROOT",
                 "ninja123456",
                 "这是用于测试的人员信息..."
         );

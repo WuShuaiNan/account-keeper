@@ -13,7 +13,7 @@ public class RegisterInfo implements Dto {
     public RegisterInfo() {
     }
 
-    public RegisterInfo(String id, String name, String password, String remark) {
+    public RegisterInfo(String id, String password, String remark) {
         this.id = id;
         this.password = password;
         this.remark = remark;

@@ -37,9 +37,9 @@ public class LoginServiceImplTest {
 
     @Before
     public void setUp() {
-        zhangSanReg = new RegisterInfo("zhang_san", "张三", "ninja123456", "测试用账号");
-        liSiReg = new RegisterInfo("li_si", "李四", "ninja123456", "测试用账号");
-        wangWuReg = new RegisterInfo("wang_wu", "王五", "ninja123456", "测试用账号");
+        zhangSanReg = new RegisterInfo("zhang_san", "ninja123456", "测试用账号");
+        liSiReg = new RegisterInfo("li_si", "ninja123456", "测试用账号");
+        wangWuReg = new RegisterInfo("wang_wu", "ninja123456", "测试用账号");
     }
 
     @After
