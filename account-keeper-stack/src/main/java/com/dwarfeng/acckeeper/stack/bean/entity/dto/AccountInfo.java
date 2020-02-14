@@ -45,7 +45,7 @@ public class AccountInfo implements Dto {
 
     @Override
     public String toString() {
-        return "UserInfo{" +
+        return "AccountInfo{" +
                 "id='" + id + '\'' +
                 ", enabled=" + enabled +
                 ", remark='" + remark + '\'' +

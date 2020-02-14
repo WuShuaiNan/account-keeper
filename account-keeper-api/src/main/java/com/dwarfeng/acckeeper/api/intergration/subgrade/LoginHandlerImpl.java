@@ -25,18 +25,18 @@ public class LoginHandlerImpl implements LoginHandler {
     private RegisterService registerService;
 
     @Override
-    public boolean checkPassword(StringIdKey userKey, String password) throws HandlerException {
+    public boolean checkPassword(StringIdKey accountKey, String password) throws HandlerException {
         try {
-            return registerService.checkPassword(userKey.getStringId(), password);
+            return registerService.checkPassword(accountKey.getStringId(), password);
         } catch (Exception e) {
             throw new HandlerException(e);
         }
     }
 
     @Override
-    public LongIdKey login(StringIdKey userKey, String password) throws HandlerException {
+    public LongIdKey login(StringIdKey accountKey, String password) throws HandlerException {
         try {
-            return loginService.login(userKey, password).getKey();
+            return loginService.login(accountKey, password).getKey();
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }

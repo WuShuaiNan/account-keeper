@@ -17,12 +17,12 @@ public interface LoginService extends Service {
     /**
      * 登录。
      *
-     * @param userKey  指定的账户名。
-     * @param password 指定的密码。
+     * @param accountKey 指定的账户名。
+     * @param password   指定的密码。
      * @return 登录状态。
      * @throws ServiceException 服务异常。
      */
-    LoginState login(StringIdKey userKey, String password) throws ServiceException;
+    LoginState login(StringIdKey accountKey, String password) throws ServiceException;
 
     /**
      * 登出。

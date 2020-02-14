@@ -12,8 +12,8 @@ public class FastJsonLoginState implements Bean {
     @JSONField(name = "key", ordinal = 1)
     private FastJsonLongIdKey key;
 
-    @JSONField(name = "user_key", ordinal = 2)
-    private FastJsonStringIdKey userKey;
+    @JSONField(name = "account_key", ordinal = 2)
+    private FastJsonStringIdKey accountKey;
 
     @JSONField(name = "expire_date", ordinal = 3)
     private long expireDate;
@@ -32,12 +32,12 @@ public class FastJsonLoginState implements Bean {
         this.key = key;
     }
 
-    public FastJsonStringIdKey getUserKey() {
-        return userKey;
+    public FastJsonStringIdKey getAccountKey() {
+        return accountKey;
     }
 
-    public void setUserKey(FastJsonStringIdKey userKey) {
-        this.userKey = userKey;
+    public void setAccountKey(FastJsonStringIdKey accountKey) {
+        this.accountKey = accountKey;
     }
 
     public long getExpireDate() {
@@ -60,7 +60,7 @@ public class FastJsonLoginState implements Bean {
     public String toString() {
         return "FastJsonLoginState{" +
                 "key=" + key +
-                ", userKey=" + userKey +
+                ", accountKey=" + accountKey +
                 ", expireDate=" + expireDate +
                 ", serialVersion=" + serialVersion +
                 '}';

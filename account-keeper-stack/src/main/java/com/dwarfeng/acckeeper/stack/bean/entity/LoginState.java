@@ -15,16 +15,16 @@ public class LoginState implements Entity<LongIdKey> {
     private static final long serialVersionUID = 1978695890873432131L;
 
     private LongIdKey key;
-    private StringIdKey userKey;
+    private StringIdKey accountKey;
     private long expireDate;
     private long serialVersion;
 
     public LoginState() {
     }
 
-    public LoginState(LongIdKey key, StringIdKey userKey, long expireDate, long serialVersion) {
+    public LoginState(LongIdKey key, StringIdKey accountKey, long expireDate, long serialVersion) {
         this.key = key;
-        this.userKey = userKey;
+        this.accountKey = accountKey;
         this.expireDate = expireDate;
         this.serialVersion = serialVersion;
     }
@@ -39,12 +39,12 @@ public class LoginState implements Entity<LongIdKey> {
         this.key = key;
     }
 
-    public StringIdKey getUserKey() {
-        return userKey;
+    public StringIdKey getAccountKey() {
+        return accountKey;
     }
 
-    public void setUserKey(StringIdKey userKey) {
-        this.userKey = userKey;
+    public void setAccountKey(StringIdKey accountKey) {
+        this.accountKey = accountKey;
     }
 
     public long getExpireDate() {
@@ -67,7 +67,7 @@ public class LoginState implements Entity<LongIdKey> {
     public String toString() {
         return "LoginState{" +
                 "key=" + key +
-                ", userKey=" + userKey +
+                ", accountKey=" + accountKey +
                 ", expireDate=" + expireDate +
                 ", serialVersion=" + serialVersion +
                 '}';

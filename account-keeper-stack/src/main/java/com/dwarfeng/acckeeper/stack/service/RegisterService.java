@@ -46,19 +46,19 @@ public interface RegisterService extends Service {
     /**
      * 更新账户信息。
      *
-     * @param userInfo 指定的信息。
+     * @param accountInfo 指定的信息。
      * @return 更新账户信息之后返回的账户。
      * @throws ServiceException 服务异常。
      */
-    Account updateAccountInfo(AccountInfo userInfo) throws ServiceException;
+    Account updateAccountInfo(AccountInfo accountInfo) throws ServiceException;
 
     /**
      * 判断指定的账户密码是否正确。
      *
-     * @param userId   指定的账户id。
-     * @param password 账户的密码。
+     * @param accountId 指定的账户id。
+     * @param password  账户的密码。
      * @return 账户的密码是否正确。
      * @throws ServiceException 服务异常。
      */
-    boolean checkPassword(String userId, String password) throws ServiceException;
+    boolean checkPassword(String accountId, String password) throws ServiceException;
 }

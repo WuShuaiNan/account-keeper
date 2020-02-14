@@ -87,10 +87,10 @@ public class LoginServiceImpl implements LoginService {
             if (loginState.getExpireDate() < System.currentTimeMillis()) {
                 return false;
             }
-            if (!accountMaintainService.exists(loginState.getUserKey())) {
+            if (!accountMaintainService.exists(loginState.getAccountKey())) {
                 return false;
             }
-            long accountSerialVersion = accountMaintainService.get(loginState.getUserKey()).getSerialVersion();
+            long accountSerialVersion = accountMaintainService.get(loginState.getAccountKey()).getSerialVersion();
             return accountSerialVersion == loginState.getSerialVersion();
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("判断是否登录时发生异常", LogLevel.WARN, sem, e);
@@ -121,10 +121,10 @@ public class LoginServiceImpl implements LoginService {
             if (loginState.getExpireDate() < System.currentTimeMillis()) {
                 throw new ServiceException(ServiceExceptionCodes.LOGIN_EXPIRED);
             }
-            if (!accountMaintainService.exists(loginState.getUserKey())) {
+            if (!accountMaintainService.exists(loginState.getAccountKey())) {
                 throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
             }
-            long accountSerialVersion = accountMaintainService.get(loginState.getUserKey()).getSerialVersion();
+            long accountSerialVersion = accountMaintainService.get(loginState.getAccountKey()).getSerialVersion();
             if (accountSerialVersion != loginState.getSerialVersion()) {
                 throw new ServiceException(ServiceExceptionCodes.LOGIN_OUTDATED);
             }
