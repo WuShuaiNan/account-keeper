@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 
 @Service
@@ -187,23 +186,6 @@ public class RegisterServiceImpl implements RegisterService {
             }
         } catch (Exception e) {
             throw sem.map(e);
-        }
-    }
-
-    @Value("${acckeeper.gen_default_account}")
-    private boolean generateDefault;
-    @Value("${acckeeper.default_account.id}")
-    private String id;
-    @Value("${acckeeper.default_account.password}")
-    private String password;
-
-    @PostConstruct
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
-    public void init() throws Exception {
-        StringIdKey accountId = new StringIdKey(id);
-        if (generateDefault && !accountMaintainService.exists(accountId)) {
-            register(new RegisterInfo(id, password, "自动注册的账户"));
         }
     }
 }

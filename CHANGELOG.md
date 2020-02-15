@@ -1,5 +1,21 @@
 # ChangeLog
 
+### Release_1.1.2_20200215_build_A
+
+#### 功能构建
+
+- 修复ExceptionCodeOffsetConfiguration配置中的错误。
+
+#### Bug修复
+
+- (无)
+
+#### 功能移除
+
+- ~~去除允许在程序在没有默认账户的情况下建立默认账户的功能~~
+
+---
+
 ### Release_1.1.1_20200215_build_A
 
 #### 功能构建
