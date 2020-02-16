@@ -3,6 +3,7 @@ package com.dwarfeng.acckeeper.impl.service;
 import com.dwarfeng.acckeeper.stack.bean.entity.Account;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
+import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
 import com.dwarfeng.subgrade.impl.service.GeneralCrudService;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
@@ -20,6 +21,8 @@ public class AccountMaintainServiceImpl implements AccountMaintainService {
     private GeneralCrudService<StringIdKey, Account> crudService;
     @Autowired
     private DaoOnlyEntireLookupService<Account> entireLookupService;
+    @Autowired
+    private DaoOnlyPresetLookupService<Account> presetLookupService;
 
     @Override
     @BehaviorAnalyse
@@ -103,5 +106,19 @@ public class AccountMaintainServiceImpl implements AccountMaintainService {
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
     public PagedData<Account> lookup(PagingInfo pagingInfo) throws ServiceException {
         return entireLookupService.lookup(pagingInfo);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public PagedData<Account> lookup(String preset, Object[] objs) throws ServiceException {
+        return presetLookupService.lookup(preset, objs);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public PagedData<Account> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
+        return presetLookupService.lookup(preset, objs, pagingInfo);
     }
 }

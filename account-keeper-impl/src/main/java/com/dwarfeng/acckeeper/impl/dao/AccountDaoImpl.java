@@ -4,8 +4,11 @@ import com.dwarfeng.acckeeper.impl.bean.entity.HibernateAccount;
 import com.dwarfeng.acckeeper.stack.bean.entity.Account;
 import com.dwarfeng.acckeeper.stack.dao.AccountDao;
 import com.dwarfeng.subgrade.impl.dao.HibernateBatchBaseDao;
+import com.dwarfeng.subgrade.impl.dao.HibernateEntireLookupDao;
+import com.dwarfeng.subgrade.impl.dao.HibernatePresetLookupDao;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
 import org.dozer.Mapper;
@@ -21,6 +24,10 @@ public class AccountDaoImpl implements AccountDao {
 
     @Autowired
     private HibernateBatchBaseDao<StringIdKey, HibernateStringIdKey, Account, HibernateAccount> batchDelegate;
+    @Autowired
+    private HibernateEntireLookupDao<Account, HibernateAccount> entireLookupDelegate;
+    @Autowired
+    private HibernatePresetLookupDao<Account, HibernateAccount> presetLookupDelegate;
 
     @Autowired
     private HibernateTemplate template;
@@ -102,5 +109,47 @@ public class AccountDaoImpl implements AccountDao {
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
     public List<Account> batchGet(List<StringIdKey> keys) {
         return batchDelegate.batchGet(keys);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public List<Account> lookup() throws DaoException {
+        return entireLookupDelegate.lookup();
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public List<Account> lookup(PagingInfo pagingInfo) throws DaoException {
+        return entireLookupDelegate.lookup(pagingInfo);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public int lookupCount() throws DaoException {
+        return entireLookupDelegate.lookupCount();
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public List<Account> lookup(String preset, Object[] objs) throws DaoException {
+        return presetLookupDelegate.lookup(preset, objs);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public List<Account> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws DaoException {
+        return presetLookupDelegate.lookup(preset, objs, pagingInfo);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    public int lookupCount(String preset, Object[] objs) throws DaoException {
+        return presetLookupDelegate.lookupCount(preset, objs);
     }
 }

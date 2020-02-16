@@ -1,8 +1,11 @@
 package com.dwarfeng.acckeeper.impl.configuration;
 
 import com.dwarfeng.acckeeper.stack.bean.entity.Account;
+import com.dwarfeng.acckeeper.stack.cache.AccountCache;
+import com.dwarfeng.acckeeper.stack.dao.AccountDao;
 import com.dwarfeng.subgrade.impl.bean.key.ExceptionKeyFetcher;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
+import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
 import com.dwarfeng.subgrade.impl.service.GeneralCrudService;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
@@ -15,9 +18,9 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfiguration {
 
     @Autowired
-    private CacheConfiguration cacheConfiguration;
+    private AccountCache accountCache;
     @Autowired
-    private DaoConfiguration daoConfiguration;
+    private AccountDao accountDao;
     @Autowired
     private ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration;
     @Value("${cache.timeout.entity.account}")
@@ -26,8 +29,8 @@ public class ServiceConfiguration {
     @Bean
     public GeneralCrudService<StringIdKey, Account> accountGeneralCrudService() {
         return new GeneralCrudService<>(
-                daoConfiguration.accountHibernateBatchBaseDao(),
-                cacheConfiguration.accountCacheDelegate(),
+                accountDao,
+                accountCache,
                 new ExceptionKeyFetcher<>(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN,
@@ -36,9 +39,18 @@ public class ServiceConfiguration {
     }
 
     @Bean
-    public DaoOnlyEntireLookupService<Account> daoOnlyEntireLookupService() {
+    public DaoOnlyEntireLookupService<Account> accountDaoOnlyEntireLookupService() {
         return new DaoOnlyEntireLookupService<>(
-                daoConfiguration.accountHibernateEntireLookupDao(),
+                accountDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<Account> accountDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                accountDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );
