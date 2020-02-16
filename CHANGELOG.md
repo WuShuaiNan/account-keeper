@@ -5,6 +5,7 @@
 #### 功能构建
 
 - 添加JS修复的实体对象。
+- 实现AccountMaintainService查询所有实体的功能。
 
 #### Bug修复
 
