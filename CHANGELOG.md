@@ -6,6 +6,8 @@
 
 - 添加JS修复的实体对象。
 - 实现AccountMaintainService查询所有实体的功能。
+- 实现AccountMaintainService实体预设查询的功能。
+- 升级subgrade项目版本为beta-0.2.2.a。
 
 #### Bug修复
 
