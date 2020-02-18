@@ -1,5 +1,21 @@
 # ChangeLog
 
+### Release_1.1.4_20200218_build_A
+
+#### 功能构建
+
+- (无)
+
+#### Bug修复
+
+- 升级subgrade项目版本为beta-0.2.3.a以修复PagedData对象中字段拼写错误bug。
+
+#### 功能移除
+
+- (无)
+
+---
+
 ### Release_1.1.3_20200216_build_B
 
 #### 功能构建
