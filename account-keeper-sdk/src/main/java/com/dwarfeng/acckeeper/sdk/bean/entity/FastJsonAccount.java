@@ -1,12 +1,22 @@
 package com.dwarfeng.acckeeper.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.dwarfeng.acckeeper.stack.bean.entity.Account;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
+import org.springframework.lang.NonNull;
 
 public class FastJsonAccount implements Bean {
 
     private static final long serialVersionUID = -2142257403087306870L;
+
+    public FastJsonAccount(FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion) {
+        this.key = key;
+        this.password = password;
+        this.enabled = enabled;
+        this.remark = remark;
+        this.serialVersion = serialVersion;
+    }
 
     @JSONField(name = "key", ordinal = 1)
     private FastJsonStringIdKey key;
@@ -24,6 +34,16 @@ public class FastJsonAccount implements Bean {
     private long serialVersion;
 
     public FastJsonAccount() {
+    }
+
+    public static FastJsonAccount of(@NonNull Account account) {
+        return new FastJsonAccount(
+                FastJsonStringIdKey.of(account.getKey()),
+                account.getPassword(),
+                account.isEnabled(),
+                account.getRemark(),
+                account.getSerialVersion()
+        );
     }
 
     public FastJsonStringIdKey getKey() {

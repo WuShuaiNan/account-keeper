@@ -1,13 +1,22 @@
 package com.dwarfeng.acckeeper.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
+import org.springframework.lang.NonNull;
 
 public class FastJsonLoginState implements Bean {
 
     private static final long serialVersionUID = 6905371931123253056L;
+
+    public FastJsonLoginState(FastJsonLongIdKey key, FastJsonStringIdKey accountKey, long expireDate, long serialVersion) {
+        this.key = key;
+        this.accountKey = accountKey;
+        this.expireDate = expireDate;
+        this.serialVersion = serialVersion;
+    }
 
     @JSONField(name = "key", ordinal = 1)
     private FastJsonLongIdKey key;
@@ -22,6 +31,15 @@ public class FastJsonLoginState implements Bean {
     private long serialVersion;
 
     public FastJsonLoginState() {
+    }
+
+    public FastJsonLoginState of(@NonNull LoginState loginState) {
+        return new FastJsonLoginState(
+                FastJsonLongIdKey.of(loginState.getKey()),
+                FastJsonStringIdKey.of(loginState.getAccountKey()),
+                loginState.getExpireDate(),
+                loginState.getSerialVersion()
+        );
     }
 
     public FastJsonLongIdKey getKey() {

@@ -148,7 +148,7 @@ public class RegisterServiceImpl implements RegisterService {
             //2. 设置账户信息为指定的信息，并更新账户。
             //获取账户的详细信息。
             Account account = accountMaintainService.get(stringIdKey);
-            account.setEnabled(account.getEnabled());
+            account.setEnabled(account.isEnabled());
             account.setRemark(accountInfo.getRemark());
             accountMaintainService.update(account);
             //3. 返回更新后的账户。
