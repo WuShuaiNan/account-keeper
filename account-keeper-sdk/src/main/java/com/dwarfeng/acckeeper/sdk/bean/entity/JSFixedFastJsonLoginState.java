@@ -12,11 +12,13 @@ public class JSFixedFastJsonLoginState implements Bean {
 
     private static final long serialVersionUID = 6905371931123253056L;
 
-    public JSFixedFastJsonLoginState(JSFixedFastJsonLongIdKey key, FastJsonStringIdKey accountKey, long expireDate, long serialVersion) {
-        this.key = key;
-        this.accountKey = accountKey;
-        this.expireDate = expireDate;
-        this.serialVersion = serialVersion;
+    public static JSFixedFastJsonLoginState of(@NonNull LoginState loginState) {
+        return new JSFixedFastJsonLoginState(
+                JSFixedFastJsonLongIdKey.of(loginState.getKey()),
+                FastJsonStringIdKey.of(loginState.getAccountKey()),
+                loginState.getExpireDate(),
+                loginState.getSerialVersion()
+        );
     }
 
     @JSONField(name = "key", ordinal = 1)
@@ -34,13 +36,11 @@ public class JSFixedFastJsonLoginState implements Bean {
     public JSFixedFastJsonLoginState() {
     }
 
-    public static JSFixedFastJsonLoginState of(@NonNull LoginState loginState) {
-        return new JSFixedFastJsonLoginState(
-                JSFixedFastJsonLongIdKey.of(loginState.getKey()),
-                FastJsonStringIdKey.of(loginState.getAccountKey()),
-                loginState.getExpireDate(),
-                loginState.getSerialVersion()
-        );
+    public JSFixedFastJsonLoginState(JSFixedFastJsonLongIdKey key, FastJsonStringIdKey accountKey, long expireDate, long serialVersion) {
+        this.key = key;
+        this.accountKey = accountKey;
+        this.expireDate = expireDate;
+        this.serialVersion = serialVersion;
     }
 
     public JSFixedFastJsonLongIdKey getKey() {

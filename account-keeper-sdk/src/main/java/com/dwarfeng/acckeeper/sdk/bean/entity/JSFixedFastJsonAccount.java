@@ -11,12 +11,14 @@ public class JSFixedFastJsonAccount implements Bean {
 
     private static final long serialVersionUID = -2142257403087306870L;
 
-    public JSFixedFastJsonAccount(FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion) {
-        this.key = key;
-        this.password = password;
-        this.enabled = enabled;
-        this.remark = remark;
-        this.serialVersion = serialVersion;
+    public JSFixedFastJsonAccount of(@NonNull Account account) {
+        return new JSFixedFastJsonAccount(
+                FastJsonStringIdKey.of(account.getKey()),
+                account.getPassword(),
+                account.isEnabled(),
+                account.getRemark(),
+                account.getSerialVersion()
+        );
     }
 
     @JSONField(name = "key", ordinal = 1)
@@ -37,14 +39,12 @@ public class JSFixedFastJsonAccount implements Bean {
     public JSFixedFastJsonAccount() {
     }
 
-    public JSFixedFastJsonAccount of(@NonNull Account account) {
-        return new JSFixedFastJsonAccount(
-                FastJsonStringIdKey.of(account.getKey()),
-                account.getPassword(),
-                account.isEnabled(),
-                account.getRemark(),
-                account.getSerialVersion()
-        );
+    public JSFixedFastJsonAccount(FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion) {
+        this.key = key;
+        this.password = password;
+        this.enabled = enabled;
+        this.remark = remark;
+        this.serialVersion = serialVersion;
     }
 
     public FastJsonStringIdKey getKey() {

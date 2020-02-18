@@ -11,11 +11,13 @@ public class FastJsonLoginState implements Bean {
 
     private static final long serialVersionUID = 6905371931123253056L;
 
-    public FastJsonLoginState(FastJsonLongIdKey key, FastJsonStringIdKey accountKey, long expireDate, long serialVersion) {
-        this.key = key;
-        this.accountKey = accountKey;
-        this.expireDate = expireDate;
-        this.serialVersion = serialVersion;
+    public FastJsonLoginState of(@NonNull LoginState loginState) {
+        return new FastJsonLoginState(
+                FastJsonLongIdKey.of(loginState.getKey()),
+                FastJsonStringIdKey.of(loginState.getAccountKey()),
+                loginState.getExpireDate(),
+                loginState.getSerialVersion()
+        );
     }
 
     @JSONField(name = "key", ordinal = 1)
@@ -33,13 +35,11 @@ public class FastJsonLoginState implements Bean {
     public FastJsonLoginState() {
     }
 
-    public FastJsonLoginState of(@NonNull LoginState loginState) {
-        return new FastJsonLoginState(
-                FastJsonLongIdKey.of(loginState.getKey()),
-                FastJsonStringIdKey.of(loginState.getAccountKey()),
-                loginState.getExpireDate(),
-                loginState.getSerialVersion()
-        );
+    public FastJsonLoginState(FastJsonLongIdKey key, FastJsonStringIdKey accountKey, long expireDate, long serialVersion) {
+        this.key = key;
+        this.accountKey = accountKey;
+        this.expireDate = expireDate;
+        this.serialVersion = serialVersion;
     }
 
     public FastJsonLongIdKey getKey() {
