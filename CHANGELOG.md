@@ -5,6 +5,7 @@
 #### 功能构建
 
 - 将RegisterServiceImplTest中用于测试的账号名称从root改为foo，避免在测试的时候误删除已经存在的root账号。
+- 升级subgrade项目版本为beta-0.2.4.a。
 
 #### Bug修复
 
