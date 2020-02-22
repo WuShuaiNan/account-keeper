@@ -27,7 +27,7 @@ public class RegisterServiceImplTest {
     @Test
     public void register() throws ServiceException {
         RegisterInfo registerInfo = new RegisterInfo(
-                "root",
+                "foo",
                 "ninja123456",
                 "这是用于测试的人员信息..."
         );
@@ -38,15 +38,15 @@ public class RegisterServiceImplTest {
                 accountMaintainService.delete(key);
             }
             registerService.register(registerInfo);
-            assertTrue(registerService.checkPassword("root", "ninja123456"));
-            assertFalse(registerService.checkPassword("root", "123456"));
+            assertTrue(registerService.checkPassword("foo", "ninja123456"));
+            assertFalse(registerService.checkPassword("foo", "123456"));
             registerService.updatePassword(new PasswordInfo(
-                    "root",
+                    "foo",
                     "ninja123456",
                     "qwerty123456"
             ));
-            assertTrue(registerService.checkPassword("root", "qwerty123456"));
-            assertFalse(registerService.checkPassword("root", "123456"));
+            assertTrue(registerService.checkPassword("foo", "qwerty123456"));
+            assertFalse(registerService.checkPassword("foo", "123456"));
         } finally {
             if (accountMaintainService.exists(key)) {
                 accountMaintainService.delete(key);

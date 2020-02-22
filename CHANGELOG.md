@@ -1,5 +1,21 @@
 # ChangeLog
 
+### Release_1.1.5_20200218_build_A
+
+#### 功能构建
+
+- 将RegisterServiceImplTest中用于测试的账号名称从root改为foo，避免在测试的时候误删除已经存在的root账号。
+
+#### Bug修复
+
+- (无)
+
+#### 功能移除
+
+- (无)
+
+---
+
 ### Release_1.1.4_20200218_build_B
 
 #### 功能构建
