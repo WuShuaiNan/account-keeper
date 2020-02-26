@@ -1,4 +1,4 @@
-package com.dwarfeng.acckeeper.api.intergration.subgrade;
+package com.dwarfeng.acckeeper.api.integration.subgrade;
 
 import com.dwarfeng.acckeeper.stack.service.LoginService;
 import com.dwarfeng.acckeeper.stack.service.RegisterService;

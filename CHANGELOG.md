@@ -1,5 +1,21 @@
 # ChangeLog
 
+### Release_1.1.6_20200226_build_A
+
+#### 功能构建
+
+- (无)
+
+#### Bug修复
+
+- 修复com.dwarfeng.acckeeper.api.integration包错误的拼写。
+
+#### 功能移除
+
+- (无)
+
+---
+
 ### Release_1.1.5_20200222_build_A
 
 #### 功能构建
