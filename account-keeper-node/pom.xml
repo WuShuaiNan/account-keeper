@@ -113,6 +113,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-impl</artifactId>
         </dependency>
+        <!-- spring-terminator组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>spring-terminator</artifactId>
+        </dependency>
         <!-- 程序自身组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
