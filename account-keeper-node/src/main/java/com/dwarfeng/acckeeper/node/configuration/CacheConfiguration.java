@@ -31,8 +31,8 @@ public class CacheConfiguration {
     private String loginStatePrefix;
 
     @Bean
+    @SuppressWarnings("unchecked")
     public RedisBatchBaseCache<StringIdKey, Account, FastJsonAccount> accountCacheDelegate() {
-        //noinspection unchecked
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonAccount>) template,
                 new StringIdStringKeyFormatter(accountPrefix),
@@ -41,8 +41,8 @@ public class CacheConfiguration {
     }
 
     @Bean
+    @SuppressWarnings("unchecked")
     public RedisBatchBaseCache<LongIdKey, LoginState, FastJsonLoginState> loginStateRedisBatchBaseCache() {
-        //noinspection unchecked
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonLoginState>) template,
                 new LongIdStringKeyFormatter(loginStatePrefix),

@@ -9,6 +9,7 @@
 #### Bug修复
 
 - 修复com.dwarfeng.acckeeper.api.integration包错误的拼写。
+- 修复项目编译打包过程中发生的报警。
 
 #### 功能移除
 

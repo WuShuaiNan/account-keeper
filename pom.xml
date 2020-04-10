@@ -52,10 +52,10 @@
         <log4j2.version>2.12.1</log4j2.version>
         <slf4j.version>1.7.25</slf4j.version>
         <dozer.version>5.5.1</dozer.version>
-        <dutil.version>beta-0.2.1.a-SNAPSHOT</dutil.version>
+        <dutil.version>beta-0.2.1.a</dutil.version>
         <jbcrypt.version>0.4</jbcrypt.version>
-        <snowflake.version>1.2.0.a</snowflake.version>
-        <subgrade.version>beta-0.2.4.a</subgrade.version>
+        <snowflake.version>1.2.4.a</snowflake.version>
+        <subgrade.version>beta-0.3.2.b</subgrade.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
