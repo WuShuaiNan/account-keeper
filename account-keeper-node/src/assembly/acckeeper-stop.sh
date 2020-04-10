@@ -1,6 +1,6 @@
 #!/bin/bash
 # 程序的根目录
-basedir=/usr/share/acckeeper
+basedir=/usr/local/acckeeper
 
 PID=$(cat $basedir/acckeeper.pid)
 kill "$PID"

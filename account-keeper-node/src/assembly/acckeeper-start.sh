@@ -1,11 +1,16 @@
 #!/bin/sh
 # 程序的根目录
-basedir=/usr/share/acckeeper
+basedir=/usr/local/acckeeper
 # 日志的根目录
 logdir=/var/log/acckeeper
-# 可执行的jar名称
-executable_jar_name=${project.name}-${project.version}.jar
 
 cd $basedir || exit
-nohup /bin/java -Dlog.dir=$logdir -jar $basedir/lib/$executable_jar_name >/dev/null 2>&1 &
+# shellcheck disable=SC2154
+# shellcheck disable=SC2086
+nohup /bin/java -classpath "lib/*:libext/*" \
+-Dlog.dir=$logdir \
+-Dlog.consoleEncoding=UTF-8 \
+-Dlog.fileEncoding=UTF-8 \
+${mainClass} \
+>/dev/null 2>&1 &
 echo $! >$basedir/acckeeper.pid
