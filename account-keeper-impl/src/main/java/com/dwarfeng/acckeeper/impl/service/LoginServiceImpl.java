@@ -43,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public LoginState login(StringIdKey accountKey, String password) throws ServiceException {
         try {
             if (!registerService.checkPassword(accountKey.getStringId(), password)) {
@@ -66,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void logout(LongIdKey idKey) throws ServiceException {
         try {
             if (loginStateCache.exists(idKey)) {
@@ -79,7 +79,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean isLogin(LongIdKey idKey) throws ServiceException {
         try {
             if (!loginStateCache.exists(idKey)) return false;
@@ -99,7 +99,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true)
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public LoginState getLoginState(LongIdKey idKey) throws ServiceException {
         try {
             if (!loginStateCache.exists(idKey)) throw new ServiceException(ENTITY_NOT_EXIST);
@@ -111,7 +111,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public LoginState postpone(LongIdKey idKey) throws ServiceException {
         try {
             if (!loginStateCache.exists(idKey)) {

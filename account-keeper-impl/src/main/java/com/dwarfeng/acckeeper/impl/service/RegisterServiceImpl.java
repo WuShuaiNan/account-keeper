@@ -37,7 +37,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public Account register(@NotNull RegisterInfo registerInfo) throws ServiceException {
         LOGGER.info("注册新账户 ID=" + registerInfo.getId() + " ...");
         StringIdKey stringIdKey = new StringIdKey(registerInfo.getId());
@@ -64,7 +64,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public Account updatePassword(PasswordInfo passwordInfo) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(passwordInfo.getId());
         try {
@@ -101,7 +101,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public Account forceUpdatePassword(ForcePasswordInfo forcePasswordInfo) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(forcePasswordInfo.getId());
         try {
@@ -130,7 +130,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public Account updateAccountInfo(AccountInfo accountInfo) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(accountInfo.getId());
         try {
@@ -160,7 +160,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager")
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public boolean checkPassword(String accountId, String password) throws ServiceException {
         StringIdKey stringIdKey = new StringIdKey(accountId);
         try {
