@@ -165,6 +165,7 @@
                             </descriptors>
                             <tarLongFileMode>gnu</tarLongFileMode>
                             <attach>false</attach>
+                            <finalName>acckeeper-${project.version}</finalName>
                         </configuration>
                     </execution>
                 </executions>
