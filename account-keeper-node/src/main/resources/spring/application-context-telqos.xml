@@ -15,6 +15,10 @@
         <telqos:command>
             <telqos:command-impl ref="shutdownCommand"/>
             <telqos:command-impl ref="dubboCommand"/>
+            <telqos:command-impl ref="kickCommand"/>
+            <telqos:command-impl ref="loginCommand"/>
+            <telqos:command-impl ref="postponeCommand"/>
+            <telqos:command-impl ref="stateCommand"/>
         </telqos:command>
     </telqos:config>
 

@@ -10,6 +10,10 @@
   - 更新依赖 subgrade 版本至 1.1.2.a。
   - 更新依赖 dubbo 版本至 2.7.6。
 - 引入 spring-telqos 框架。
+  - 新增指令 com.dwarfeng.acckeeper.impl.service.telqos.KickCommand。
+  - 新增指令 com.dwarfeng.acckeeper.impl.service.telqos.LoginCommand。
+  - 新增指令 com.dwarfeng.acckeeper.impl.service.telqos.PostponeCommand。
+  - 新增指令 com.dwarfeng.acckeeper.impl.service.telqos.StateCommand。
 
 #### Bug修复
 

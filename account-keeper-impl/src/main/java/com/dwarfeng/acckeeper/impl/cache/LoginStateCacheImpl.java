@@ -5,13 +5,18 @@ import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.acckeeper.stack.cache.LoginStateCache;
 import com.dwarfeng.subgrade.impl.cache.RedisBatchBaseCache;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.redis.formatter.StringKeyFormatter;
+import com.dwarfeng.subgrade.stack.bean.BeanTransformer;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.CacheException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class LoginStateCacheImpl implements LoginStateCache {
@@ -87,5 +92,25 @@ public class LoginStateCacheImpl implements LoginStateCache {
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDelete(List<LongIdKey> keys) throws CacheException {
         delegate.batchDelete(keys);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
+    public List<LoginState> all() throws CacheException {
+        try {
+            RedisTemplate<String, FastJsonLoginState> template = delegate.getTemplate();
+            StringKeyFormatter<LongIdKey> formatter = delegate.getFormatter();
+            BeanTransformer<LoginState, FastJsonLoginState> transformer = delegate.getTransformer();
+            Set<String> keys = template.keys(formatter.generalFormat());
+            List<LoginState> result = new ArrayList<>();
+            for (String key : keys) {
+                FastJsonLoginState fastJsonLoginState = template.opsForValue().get(key);
+                result.add(transformer.reverseTransform(fastJsonLoginState));
+            }
+            return result;
+        } catch (Exception e) {
+            throw new CacheException(e);
+        }
     }
 }
