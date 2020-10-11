@@ -3,6 +3,8 @@ package com.dwarfeng.acckeeper.node.launcher;
 import com.dwarfeng.springterminator.sdk.util.ApplicationUtil;
 
 /**
+ * 程序启动器。
+ *
  * @author DwArFeng
  * @since 0.0.1-alpha
  */

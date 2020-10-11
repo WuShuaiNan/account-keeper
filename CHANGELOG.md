@@ -4,7 +4,7 @@
 
 #### 功能构建
 
-- (无)
+- 将配置项目 hibernate 更名为 database。
 
 #### Bug修复
 
