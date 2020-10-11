@@ -55,8 +55,8 @@
         <dutil.version>beta-0.2.1.a</dutil.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <snowflake.version>1.2.4.a</snowflake.version>
-        <subgrade.version>beta-0.3.2.b</subgrade.version>
-        <spring-terminator.version>1.0.3.a</spring-terminator.version>
+        <subgrade.version>1.1.2.a</subgrade.version>
+        <spring-terminator.version>1.0.6.a</spring-terminator.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>

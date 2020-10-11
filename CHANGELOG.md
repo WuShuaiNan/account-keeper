@@ -5,6 +5,9 @@
 #### 功能构建
 
 - 将配置项目 hibernate 更名为 database。
+- 更新多个依赖项目的版本。
+  - 更新依赖 spring-terminator 版本至 1.0.6.a。
+  - 更新依赖 subgrade 版本至 1.1.2.a。
 
 #### Bug修复
 
