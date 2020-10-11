@@ -57,6 +57,7 @@
         <snowflake.version>1.2.4.a</snowflake.version>
         <subgrade.version>1.1.2.a</subgrade.version>
         <spring-terminator.version>1.0.6.a</spring-terminator.version>
+        <spring-telqos.version>1.1.0.a</spring-telqos.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -338,6 +339,17 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>spring-terminator</artifactId>
                 <version>${spring-terminator.version}</version>
+            </dependency>
+            <!-- spring-telqos组件 -->
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>spring-telqos-core</artifactId>
+                <version>${spring-telqos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>spring-telqos-api</artifactId>
+                <version>${spring-telqos.version}</version>
             </dependency>
             <!-- 程序自身组件 -->
             <dependency>

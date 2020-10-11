@@ -8,6 +8,8 @@
 - 更新多个依赖项目的版本。
   - 更新依赖 spring-terminator 版本至 1.0.6.a。
   - 更新依赖 subgrade 版本至 1.1.2.a。
+  - 更新依赖 dubbo 版本至 2.7.6。
+- 引入 spring-telqos 框架。
 
 #### Bug修复
 

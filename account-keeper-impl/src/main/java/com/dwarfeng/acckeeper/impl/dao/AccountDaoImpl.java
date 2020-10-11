@@ -107,7 +107,7 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<Account> batchGet(List<StringIdKey> keys) {
+    public List<Account> batchGet(List<StringIdKey> keys) throws DaoException {
         return batchDelegate.batchGet(keys);
     }
 
