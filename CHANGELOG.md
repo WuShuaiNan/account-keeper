@@ -12,6 +12,7 @@
 - 引入 spring-telqos 框架。
   - 新增指令 com.dwarfeng.acckeeper.impl.service.telqos.KickCommand。
   - 新增指令 com.dwarfeng.acckeeper.impl.service.telqos.StateCommand。
+- 将 application-context-task.xml 中的参数设置为可配置参数。
 
 #### Bug修复
 
