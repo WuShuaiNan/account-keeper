@@ -5,6 +5,13 @@
 #### 功能构建
 
 - 优化 dubbo 的配置。
+- 升级依赖版本。
+  - druid 依赖版本升级至 1.1.20。
+  - hibernate 依赖版本升级至 5.3.15.Final。
+  - slf4j 依赖版本升级至 1.7.5。
+  - subgrade 依赖版本升级至 1.2.0.b。
+  - spring-terminator 依赖版本升级至 1.0.7.a。
+  - spring-telqos 依赖版本升级至 1.1.1.a。
 
 #### Bug修复
 
