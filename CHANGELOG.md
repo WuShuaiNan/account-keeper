@@ -12,6 +12,7 @@
   - subgrade 依赖版本升级至 1.2.0.b。
   - spring-terminator 依赖版本升级至 1.0.7.a。
   - spring-telqos 依赖版本升级至 1.1.1.a。
+- 优化 redis 的配置。
 
 #### Bug修复
 
