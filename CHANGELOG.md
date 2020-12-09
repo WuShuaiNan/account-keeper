@@ -13,6 +13,7 @@
   - spring-terminator 依赖版本升级至 1.0.7.a。
   - spring-telqos 依赖版本升级至 1.1.1.a。
 - 优化 redis 的配置。
+- 消除预设配置文件中的真实的 ip 地址。
 
 #### Bug修复
 
