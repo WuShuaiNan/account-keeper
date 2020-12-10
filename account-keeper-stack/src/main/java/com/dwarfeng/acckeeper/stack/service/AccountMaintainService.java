@@ -1,7 +1,9 @@
 package com.dwarfeng.acckeeper.stack.service;
 
 import com.dwarfeng.acckeeper.stack.bean.entity.Account;
+import com.dwarfeng.acckeeper.stack.bean.entity.dto.AccountInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
+import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.CrudService;
 import com.dwarfeng.subgrade.stack.service.EntireLookupService;
 import com.dwarfeng.subgrade.stack.service.PresetLookupService;
@@ -16,4 +18,36 @@ public interface AccountMaintainService extends CrudService<StringIdKey, Account
         PresetLookupService<Account> {
 
     String ID_LIKE = "id_like";
+
+    /**
+     * 请勿在注册用户时直接调用本方法，而是使用 {@link AccountService#register(AccountInfo, String)}。
+     * <p>请勿直接调用该方法，除非您清楚调用该方法意味着什么。
+     */
+    @Override
+    StringIdKey insert(Account element) throws ServiceException;
+
+    /**
+     * 请勿在更新用户时直接调用本方法，而是使用 {@link AccountService#update(AccountInfo)}。
+     * <p>请勿直接调用该方法，除非您清楚调用该方法意味着什么。
+     */
+    @Override
+    void update(Account element) throws ServiceException;
+
+    /**
+     * 请勿直接调用该方法，除非您清楚调用该方法意味着什么。
+     */
+    @Override
+    StringIdKey insertIfNotExists(Account element) throws ServiceException;
+
+    /**
+     * 请勿直接调用该方法，除非您清楚调用该方法意味着什么。
+     */
+    @Override
+    void updateIfExists(Account element) throws ServiceException;
+
+    /**
+     * 请勿直接调用该方法，除非您清楚调用该方法意味着什么。
+     */
+    @Override
+    StringIdKey insertOrUpdate(Account element) throws ServiceException;
 }

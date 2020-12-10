@@ -1,11 +1,12 @@
 package com.dwarfeng.acckeeper.impl.service;
 
 import com.dwarfeng.acckeeper.sdk.util.ServiceExceptionCodes;
+import com.dwarfeng.acckeeper.stack.bean.entity.Account;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.acckeeper.stack.cache.LoginStateCache;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
 import com.dwarfeng.acckeeper.stack.service.LoginService;
-import com.dwarfeng.acckeeper.stack.service.RegisterService;
+import com.dwarfeng.acckeeper.stack.service.PasswordService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.stack.bean.key.KeyFetcher;
@@ -25,7 +26,7 @@ import static com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.ENTITY_N
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private RegisterService registerService;
+    private PasswordService passwordService;
     @Autowired
     private LoginStateCache loginStateCache;
     @Autowired
@@ -46,10 +47,17 @@ public class LoginServiceImpl implements LoginService {
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public LoginState login(StringIdKey accountKey, String password) throws ServiceException {
         try {
-            if (!registerService.checkPassword(accountKey.getStringId(), password)) {
+            if (!accountMaintainService.exists(accountKey)) {
+                throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
+            }
+            Account account = accountMaintainService.get(accountKey);
+            if (!account.isEnabled()) {
+                throw new ServiceException(ServiceExceptionCodes.ACCOUNT_DISABLED);
+            }
+            if (!passwordService.checkPassword(accountKey, password)) {
                 throw new ServiceException(ServiceExceptionCodes.WRONG_PASSWORD);
             }
-            long serialVersion = accountMaintainService.get(accountKey).getSerialVersion();
+            long serialVersion = account.getSerialVersion();
             LoginState loginState = new LoginState(
                     keyFetcher.fetchKey(),
                     accountKey,

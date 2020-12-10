@@ -1,7 +1,7 @@
 package com.dwarfeng.acckeeper.api.integration.subgrade;
 
 import com.dwarfeng.acckeeper.stack.service.LoginService;
-import com.dwarfeng.acckeeper.stack.service.RegisterService;
+import com.dwarfeng.acckeeper.stack.service.PasswordService;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -22,12 +22,12 @@ public class LoginHandlerImpl implements LoginHandler {
     @Autowired
     private LoginService loginService;
     @Autowired
-    private RegisterService registerService;
+    private PasswordService passwordService;
 
     @Override
     public boolean checkPassword(StringIdKey accountKey, String password) throws HandlerException {
         try {
-            return registerService.checkPassword(accountKey.getStringId(), password);
+            return passwordService.checkPassword(accountKey, password);
         } catch (Exception e) {
             throw new HandlerException(e);
         }

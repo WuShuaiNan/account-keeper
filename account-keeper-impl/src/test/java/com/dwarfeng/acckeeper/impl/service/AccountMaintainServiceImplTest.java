@@ -1,9 +1,10 @@
 package com.dwarfeng.acckeeper.impl.service;
 
 import com.dwarfeng.acckeeper.stack.bean.entity.Account;
-import com.dwarfeng.acckeeper.stack.bean.entity.dto.RegisterInfo;
+import com.dwarfeng.acckeeper.stack.bean.entity.dto.AccountInfo;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
-import com.dwarfeng.acckeeper.stack.service.RegisterService;
+import com.dwarfeng.acckeeper.stack.service.AccountService;
+import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Objects;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/application-context*.xml")
@@ -22,17 +23,17 @@ public class AccountMaintainServiceImplTest {
     @Autowired
     private AccountMaintainService accountMaintainService;
     @Autowired
-    private RegisterService registerService;
+    private AccountService accountService;
 
-    private RegisterInfo zhangSanReg;
-    private RegisterInfo liSiReg;
-    private RegisterInfo wangWuReg;
+    private AccountInfo zhangSanReg;
+    private AccountInfo liSiReg;
+    private AccountInfo wangWuReg;
 
     @Before
     public void setUp() {
-        zhangSanReg = new RegisterInfo("zhang_san", "ninja123456", "测试用账号");
-        liSiReg = new RegisterInfo("li_si", "ninja123456", "测试用账号");
-        wangWuReg = new RegisterInfo("wang_wu", "ninja123456", "测试用账号");
+        zhangSanReg = new AccountInfo(new StringIdKey("zhang_san"), true, "测试用账号");
+        liSiReg = new AccountInfo(new StringIdKey("li_si"), true, "测试用账号");
+        wangWuReg = new AccountInfo(new StringIdKey("wang_wu"), true, "测试用账号");
     }
 
     @After
@@ -44,17 +45,27 @@ public class AccountMaintainServiceImplTest {
 
     @Test
     public void test() throws ServiceException {
-        Account zhangSan = null;
-        Account liSi = null;
-        Account wangWu = null;
+        Account zhangSan;
+        Account liSi;
+        Account wangWu;
         try {
-            zhangSan = registerService.register(zhangSanReg);
-            liSi = registerService.register(liSiReg);
-            wangWu = registerService.register(wangWuReg);
+            accountMaintainService.deleteIfExists(zhangSanReg.getKey());
+            accountMaintainService.deleteIfExists(liSiReg.getKey());
+            accountMaintainService.deleteIfExists(wangWuReg.getKey());
+
+            accountService.register(zhangSanReg, "ninja123456");
+            accountService.register(liSiReg, "ninja123456");
+            accountService.register(wangWuReg, "ninja123456");
+            zhangSan = accountMaintainService.get(zhangSanReg.getKey());
+            liSi = accountMaintainService.get(liSiReg.getKey());
+            wangWu = accountMaintainService.get(wangWuReg.getKey());
+            assertEquals(zhangSanReg.isEnabled(), zhangSan.isEnabled());
+            assertEquals(liSiReg.isEnabled(), liSi.isEnabled());
+            assertEquals(wangWuReg.isEnabled(), wangWu.isEnabled());
         } finally {
-            if (Objects.nonNull(zhangSan)) accountMaintainService.delete(zhangSan.getKey());
-            if (Objects.nonNull(liSi)) accountMaintainService.delete(liSi.getKey());
-            if (Objects.nonNull(wangWu)) accountMaintainService.delete(wangWu.getKey());
+            accountMaintainService.deleteIfExists(zhangSanReg.getKey());
+            accountMaintainService.deleteIfExists(liSiReg.getKey());
+            accountMaintainService.deleteIfExists(wangWuReg.getKey());
         }
     }
 }
