@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 增加实体字段。
+  - com.dwarfeng.acckeeper.stack.bean.entity.Account.displayName。
 
 #### Bug修复
 

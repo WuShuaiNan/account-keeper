@@ -36,8 +36,8 @@ public class LoginServiceImplTest {
 
     @Before
     public void setUp() {
-        zhangSanReg = new AccountInfo(new StringIdKey("zhang_san"), true, "测试用账号");
-        liSiReg = new AccountInfo(new StringIdKey("li_si"), false, "测试用账号");
+        zhangSanReg = new AccountInfo(new StringIdKey("zhang_san"), true, "测试用账号", "张三");
+        liSiReg = new AccountInfo(new StringIdKey("li_si"), false, "测试用账号", "李四");
     }
 
     @After

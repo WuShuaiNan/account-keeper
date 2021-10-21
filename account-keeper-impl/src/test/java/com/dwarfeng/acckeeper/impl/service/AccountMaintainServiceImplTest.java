@@ -31,9 +31,9 @@ public class AccountMaintainServiceImplTest {
 
     @Before
     public void setUp() {
-        zhangSanReg = new AccountInfo(new StringIdKey("zhang_san"), true, "测试用账号");
-        liSiReg = new AccountInfo(new StringIdKey("li_si"), true, "测试用账号");
-        wangWuReg = new AccountInfo(new StringIdKey("wang_wu"), true, "测试用账号");
+        zhangSanReg = new AccountInfo(new StringIdKey("zhang_san"), true, "测试用账号", "张三");
+        liSiReg = new AccountInfo(new StringIdKey("li_si"), true, "测试用账号", "李四");
+        wangWuReg = new AccountInfo(new StringIdKey("wang_wu"), true, "测试用账号", "王五");
     }
 
     @After

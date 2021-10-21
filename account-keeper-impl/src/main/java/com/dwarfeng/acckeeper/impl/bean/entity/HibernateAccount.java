@@ -32,6 +32,9 @@ public class HibernateAccount implements Bean {
     @Column(name = "serial_version", nullable = false)
     private long serialVersion;
 
+    @Column(name = "display_name", length = Constraints.LENGTH_LABEL)
+    private String displayName;
+
     public HibernateAccount() {
     }
 
@@ -83,14 +86,22 @@ public class HibernateAccount implements Bean {
         this.serialVersion = serialVersion;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     @Override
     public String toString() {
-        return "HibernateAccount{" +
-                "stringId='" + stringId + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", remark='" + remark + '\'' +
-                ", serialVersion=" + serialVersion +
-                '}';
+        return getClass().getSimpleName() + "(" +
+                "stringId = " + stringId + ", " +
+                "password = " + password + ", " +
+                "enabled = " + enabled + ", " +
+                "remark = " + remark + ", " +
+                "serialVersion = " + serialVersion + ", " +
+                "displayName = " + displayName + ")";
     }
 }

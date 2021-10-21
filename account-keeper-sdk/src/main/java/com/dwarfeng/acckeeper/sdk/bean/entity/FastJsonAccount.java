@@ -8,7 +8,7 @@ import org.springframework.lang.NonNull;
 
 public class FastJsonAccount implements Bean {
 
-    private static final long serialVersionUID = -2142257403087306870L;
+    private static final long serialVersionUID = 8385679921891379246L;
 
     public static FastJsonAccount of(@NonNull Account account) {
         return new FastJsonAccount(
@@ -16,7 +16,8 @@ public class FastJsonAccount implements Bean {
                 account.getPassword(),
                 account.isEnabled(),
                 account.getRemark(),
-                account.getSerialVersion()
+                account.getSerialVersion(),
+                account.getDisplayName()
         );
     }
 
@@ -35,15 +36,25 @@ public class FastJsonAccount implements Bean {
     @JSONField(name = "serial_version", ordinal = 5)
     private long serialVersion;
 
+    /**
+     * @since 1.3.1
+     */
+    @JSONField(name = "display_name", ordinal = 6)
+    private String displayName;
+
     public FastJsonAccount() {
     }
 
-    public FastJsonAccount(FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion) {
+    public FastJsonAccount(
+            FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion,
+            String displayName
+    ) {
         this.key = key;
         this.password = password;
         this.enabled = enabled;
         this.remark = remark;
         this.serialVersion = serialVersion;
+        this.displayName = displayName;
     }
 
     public FastJsonStringIdKey getKey() {
@@ -86,6 +97,14 @@ public class FastJsonAccount implements Bean {
         this.serialVersion = serialVersion;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     @Override
     public String toString() {
         return "FastJsonAccount{" +
@@ -94,6 +113,7 @@ public class FastJsonAccount implements Bean {
                 ", enabled=" + enabled +
                 ", remark='" + remark + '\'' +
                 ", serialVersion=" + serialVersion +
+                ", displayName='" + displayName + '\'' +
                 '}';
     }
 }

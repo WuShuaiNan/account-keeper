@@ -5,19 +5,24 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 
 public class AccountInfo implements Dto {
 
-    private static final long serialVersionUID = -7247213260626039980L;
+    private static final long serialVersionUID = -6684230566247375168L;
 
     private StringIdKey key;
     private boolean enabled;
     private String remark;
+    /**
+     * @since 1.3.1
+     */
+    private String displayName;
 
     public AccountInfo() {
     }
 
-    public AccountInfo(StringIdKey key, boolean enabled, String remark) {
+    public AccountInfo(StringIdKey key, boolean enabled, String remark, String displayName) {
         this.key = key;
         this.enabled = enabled;
         this.remark = remark;
+        this.displayName = displayName;
     }
 
     public StringIdKey getKey() {
@@ -44,12 +49,21 @@ public class AccountInfo implements Dto {
         this.remark = remark;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     @Override
     public String toString() {
         return "AccountInfo{" +
                 "key=" + key +
                 ", enabled=" + enabled +
                 ", remark='" + remark + '\'' +
+                ", displayName='" + displayName + '\'' +
                 '}';
     }
 }

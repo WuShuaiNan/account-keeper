@@ -31,7 +31,8 @@ public class AccountServiceImplTest {
         AccountInfo accountInfo = new AccountInfo(
                 new StringIdKey("foo"),
                 true,
-                "这是用于测试的人员信息..."
+                "这是用于测试的人员信息...",
+                "foo"
         );
         StringIdKey accountKey = accountInfo.getKey();
         try {

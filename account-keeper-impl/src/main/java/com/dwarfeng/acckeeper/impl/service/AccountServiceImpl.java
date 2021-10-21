@@ -48,7 +48,8 @@ public class AccountServiceImpl implements AccountService {
                     encryptedPassword,
                     accountInfo.isEnabled(),
                     accountInfo.getRemark(),
-                    0
+                    0,
+                    accountInfo.getDisplayName()
             );
             accountMaintainService.insert(account);
             LOGGER.info("账户已成功注册: " + account + " ...");

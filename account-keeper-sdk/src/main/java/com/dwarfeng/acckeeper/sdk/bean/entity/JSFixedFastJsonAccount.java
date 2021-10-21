@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 
 public class JSFixedFastJsonAccount implements Bean {
 
-    private static final long serialVersionUID = -2142257403087306870L;
+    private static final long serialVersionUID = 1392632769291839491L;
 
     public JSFixedFastJsonAccount of(@NonNull Account account) {
         return new JSFixedFastJsonAccount(
@@ -17,7 +17,8 @@ public class JSFixedFastJsonAccount implements Bean {
                 account.getPassword(),
                 account.isEnabled(),
                 account.getRemark(),
-                account.getSerialVersion()
+                account.getSerialVersion(),
+                account.getDisplayName()
         );
     }
 
@@ -36,15 +37,25 @@ public class JSFixedFastJsonAccount implements Bean {
     @JSONField(name = "serial_version", ordinal = 5, serializeUsing = ToStringSerializer.class)
     private long serialVersion;
 
+    /**
+     * @since 1.3.1
+     */
+    @JSONField(name = "display_name", ordinal = 6)
+    private String displayName;
+
     public JSFixedFastJsonAccount() {
     }
 
-    public JSFixedFastJsonAccount(FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion) {
+    public JSFixedFastJsonAccount(
+            FastJsonStringIdKey key, String password, boolean enabled, String remark, long serialVersion,
+            String displayName
+    ) {
         this.key = key;
         this.password = password;
         this.enabled = enabled;
         this.remark = remark;
         this.serialVersion = serialVersion;
+        this.displayName = displayName;
     }
 
     public FastJsonStringIdKey getKey() {
@@ -87,6 +98,14 @@ public class JSFixedFastJsonAccount implements Bean {
         this.serialVersion = serialVersion;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     @Override
     public String toString() {
         return "JSFixedFastJsonAccount{" +
@@ -95,6 +114,7 @@ public class JSFixedFastJsonAccount implements Bean {
                 ", enabled=" + enabled +
                 ", remark='" + remark + '\'' +
                 ", serialVersion=" + serialVersion +
+                ", displayName='" + displayName + '\'' +
                 '}';
     }
 }
