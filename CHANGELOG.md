@@ -7,6 +7,15 @@
 - 增加实体字段。
   - com.dwarfeng.acckeeper.stack.bean.entity.Account.displayName。
 
+- 升级第三方依赖版本。
+  - `hibernate-validator` 依赖版本升级至 `6.0.20.Final`。
+
+- 去除无用的三方依赖。
+  - httpclient。
+  - httpmime。
+  - httpcore。
+  - solr-solrj。
+
 #### Bug修复
 
 - (无)

@@ -35,12 +35,10 @@
         <jsqlparser.version>0.9.1</jsqlparser.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <jedis.version>2.9.0</jedis.version>
-        <solrj.version>4.10.3</solrj.version>
         <dubbo.version>2.7.6</dubbo.version>
         <netty.version>4.1.43.Final</netty.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
-        <httpcomponents.version>4.4.1</httpcomponents.version>
         <noggit.version>0.6</noggit.version>
         <zookeeper.version>3.4.14</zookeeper.version>
         <aspectj.version>1.8.2</aspectj.version>
@@ -234,12 +232,6 @@
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
             </dependency>
-            <!-- solr客户端 -->
-            <dependency>
-                <groupId>org.apache.solr</groupId>
-                <artifactId>solr-solrj</artifactId>
-                <version>${solrj.version}</version>
-            </dependency>
             <!-- zookeeper客户端 -->
             <dependency>
                 <groupId>com.101tec</groupId>
@@ -250,21 +242,6 @@
                 <groupId>org.noggit</groupId>
                 <artifactId>noggit</artifactId>
                 <version>${noggit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <version>${httpcomponents.version}</version>
             </dependency>
             <!-- hibernate组件 -->
             <dependency>
