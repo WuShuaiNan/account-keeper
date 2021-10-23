@@ -11,6 +11,10 @@
 - 添加账户接口的预设查询。
   - com.dwarfeng.acckeeper.stack.service.AccountMaintainService.DISPLAY_NAME_LIKE。
 
+- 移除项目中不需要的依赖。
+  - `spring-web`。
+  - `spring-mvc`。
+
 #### Bug修复
 
 - (无)
