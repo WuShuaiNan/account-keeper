@@ -1,13 +1,14 @@
 package com.dwarfeng.acckeeper.api.integration.subgrade;
 
+import com.dwarfeng.acckeeper.stack.bean.dto.LoginInfo;
+import com.dwarfeng.acckeeper.stack.bean.dto.PasswordCheckInfo;
+import com.dwarfeng.acckeeper.stack.service.AccountOperateService;
 import com.dwarfeng.acckeeper.stack.service.LoginService;
-import com.dwarfeng.acckeeper.stack.service.PasswordService;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.handler.LoginHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,15 +20,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginHandlerImpl implements LoginHandler {
 
-    @Autowired
-    private LoginService loginService;
-    @Autowired
-    private PasswordService passwordService;
+    private final LoginService loginService;
+    private final AccountOperateService accountOperateService;
+
+    public LoginHandlerImpl(LoginService loginService, AccountOperateService accountOperateService) {
+        this.loginService = loginService;
+        this.accountOperateService = accountOperateService;
+    }
 
     @Override
     public boolean checkPassword(StringIdKey accountKey, String password) throws HandlerException {
         try {
-            return passwordService.checkPassword(accountKey, password);
+            return accountOperateService.checkPassword(new PasswordCheckInfo(accountKey, password));
         } catch (Exception e) {
             throw new HandlerException(e);
         }
@@ -36,7 +40,7 @@ public class LoginHandlerImpl implements LoginHandler {
     @Override
     public LongIdKey login(StringIdKey accountKey, String password) throws HandlerException {
         try {
-            return loginService.login(accountKey, password).getKey();
+            return loginService.login(new LoginInfo(accountKey, password)).getKey();
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }

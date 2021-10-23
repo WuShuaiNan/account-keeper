@@ -1,51 +1,51 @@
-package com.dwarfeng.acckeeper.stack.service;
+package com.dwarfeng.acckeeper.stack.handler;
 
 import com.dwarfeng.acckeeper.stack.bean.dto.LoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
-import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import com.dwarfeng.subgrade.stack.service.Service;
+import com.dwarfeng.subgrade.stack.exception.HandlerException;
+import com.dwarfeng.subgrade.stack.handler.Handler;
 
 /**
- * 登录服务。
+ * 登录处理器。
  *
  * @author DwArFeng
- * @since 0.1.0-alpha
+ * @since 1.4.0
  */
-public interface LoginService extends Service {
+public interface LoginHandler extends Handler {
 
     /**
      * 登录。
      *
      * @param loginInfo 登录信息。
      * @return 登录状态。
-     * @throws ServiceException 服务异常。
+     * @throws HandlerException 处理器异常。
      */
-    LoginState login(LoginInfo loginInfo) throws ServiceException;
+    LoginState login(LoginInfo loginInfo) throws HandlerException;
 
     /**
      * 登出。
      *
      * @param loginStateKey 指定的登录状态主键。
-     * @throws ServiceException 服务异常。
+     * @throws HandlerException 处理器异常。
      */
-    void logout(LongIdKey loginStateKey) throws ServiceException;
+    void logout(LongIdKey loginStateKey) throws HandlerException;
 
     /**
      * 判断指定的登录状态主键是否处于有效的登录状态。
      *
      * @param loginStateKey 指定的登录状态主键。
      * @return 指定的登录状态主键是否处于有效的登录状态。
-     * @throws ServiceException 服务异常。
+     * @throws HandlerException 处理器异常。
      */
-    boolean isLogin(LongIdKey loginStateKey) throws ServiceException;
+    boolean isLogin(LongIdKey loginStateKey) throws HandlerException;
 
     /**
      * 延长指定登录状态主键的超时日期。
      *
      * @param loginStateKey 指定的登录状态主键。
      * @return 延期后的新的登录状态。
-     * @throws ServiceException 服务异常。
+     * @throws HandlerException 处理器异常。
      */
-    LoginState postpone(LongIdKey loginStateKey) throws ServiceException;
+    LoginState postpone(LongIdKey loginStateKey) throws HandlerException;
 }

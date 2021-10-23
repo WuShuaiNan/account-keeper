@@ -53,7 +53,7 @@
         <dutil.version>beta-0.2.1.a</dutil.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <snowflake.version>1.2.4.a</snowflake.version>
-        <subgrade.version>1.2.0.b</subgrade.version>
+        <subgrade.version>1.2.2.a</subgrade.version>
         <spring-terminator.version>1.0.7.a</spring-terminator.version>
         <spring-telqos.version>1.1.1.a</spring-telqos.version>
         <!-- Maven插件版本声明 -->

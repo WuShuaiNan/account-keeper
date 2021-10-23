@@ -1,147 +1,61 @@
 package com.dwarfeng.acckeeper.impl.service;
 
-import com.dwarfeng.acckeeper.sdk.util.ServiceExceptionCodes;
-import com.dwarfeng.acckeeper.stack.bean.entity.Account;
+import com.dwarfeng.acckeeper.stack.bean.dto.LoginInfo;
 import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
-import com.dwarfeng.acckeeper.stack.cache.LoginStateCache;
-import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
+import com.dwarfeng.acckeeper.stack.handler.LoginHandler;
 import com.dwarfeng.acckeeper.stack.service.LoginService;
-import com.dwarfeng.acckeeper.stack.service.PasswordService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
-import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
-import com.dwarfeng.subgrade.stack.bean.key.KeyFetcher;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
-import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import static com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.ENTITY_NOT_EXIST;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
-    private PasswordService passwordService;
-    @Autowired
-    private LoginStateCache loginStateCache;
-    @Autowired
-    private AccountMaintainService accountMaintainService;
-    @Autowired
-    private KeyFetcher<LongIdKey> keyFetcher;
+    private final LoginHandler loginHandler;
 
-    @Autowired
-    private ServiceExceptionMapper sem;
+    private final ServiceExceptionMapper sem;
 
-    @Value("${acckeeper.login.expire}")
-    private long expireTimeout;
-    @Value("${acckeeper.login.timeout_factor}")
-    private double expireTimeoutFactor;
+    public LoginServiceImpl(LoginHandler loginHandler, ServiceExceptionMapper sem) {
+        this.loginHandler = loginHandler;
+        this.sem = sem;
+    }
 
     @Override
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LoginState login(StringIdKey accountKey, String password) throws ServiceException {
+    public LoginState login(LoginInfo loginInfo) throws ServiceException {
         try {
-            if (!accountMaintainService.exists(accountKey)) {
-                throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
-            }
-            Account account = accountMaintainService.get(accountKey);
-            if (!account.isEnabled()) {
-                throw new ServiceException(ServiceExceptionCodes.ACCOUNT_DISABLED);
-            }
-            if (!passwordService.checkPassword(accountKey, password)) {
-                throw new ServiceException(ServiceExceptionCodes.WRONG_PASSWORD);
-            }
-            long serialVersion = account.getSerialVersion();
-            LoginState loginState = new LoginState(
-                    keyFetcher.fetchKey(),
-                    accountKey,
-                    System.currentTimeMillis() + expireTimeout,
-                    serialVersion
-            );
-            long timeout = (long) (expireTimeout * expireTimeoutFactor);
-            loginStateCache.push(loginState, timeout);
-            return loginState;
+            return loginHandler.login(loginInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("登录时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void logout(LongIdKey idKey) throws ServiceException {
+    public void logout(LongIdKey loginStateKey) throws ServiceException {
         try {
-            if (loginStateCache.exists(idKey)) {
-                loginStateCache.delete(idKey);
-            }
+            loginHandler.logout(loginStateKey);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("登出时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public boolean isLogin(LongIdKey idKey) throws ServiceException {
+    public boolean isLogin(LongIdKey loginStateKey) throws ServiceException {
         try {
-            if (!loginStateCache.exists(idKey)) return false;
-            LoginState loginState = loginStateCache.get(idKey);
-            if (loginState.getExpireDate() < System.currentTimeMillis()) {
-                return false;
-            }
-            if (!accountMaintainService.exists(loginState.getAccountKey())) {
-                return false;
-            }
-            long accountSerialVersion = accountMaintainService.get(loginState.getAccountKey()).getSerialVersion();
-            return accountSerialVersion == loginState.getSerialVersion();
+            return loginHandler.isLogin(loginStateKey);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("判断是否登录时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public LoginState getLoginState(LongIdKey idKey) throws ServiceException {
+    public LoginState postpone(LongIdKey loginStateKey) throws ServiceException {
         try {
-            if (!loginStateCache.exists(idKey)) throw new ServiceException(ENTITY_NOT_EXIST);
-            return loginStateCache.get(idKey);
+            return loginHandler.postpone(loginStateKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("判断是否登录时发生异常", LogLevel.WARN, sem, e);
-        }
-    }
-
-    @Override
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LoginState postpone(LongIdKey idKey) throws ServiceException {
-        try {
-            if (!loginStateCache.exists(idKey)) {
-                throw new ServiceException(ENTITY_NOT_EXIST);
-            }
-            LoginState loginState = loginStateCache.get(idKey);
-            if (loginState.getExpireDate() < System.currentTimeMillis()) {
-                throw new ServiceException(ServiceExceptionCodes.LOGIN_EXPIRED);
-            }
-            if (!accountMaintainService.exists(loginState.getAccountKey())) {
-                throw new ServiceException(ServiceExceptionCodes.ACCOUNT_NOT_EXISTS);
-            }
-            long accountSerialVersion = accountMaintainService.get(loginState.getAccountKey()).getSerialVersion();
-            if (accountSerialVersion != loginState.getSerialVersion()) {
-                throw new ServiceException(ServiceExceptionCodes.LOGIN_OUTDATED);
-            }
-            loginState.setExpireDate(System.currentTimeMillis() + expireTimeout);
-            long timeout = (long) (expireTimeout * expireTimeoutFactor);
-            loginStateCache.push(loginState, timeout);
-            return loginState;
-        } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("延长超时时间时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logAndThrow("推迟超时日期时发生异常", LogLevel.WARN, sem, e);
         }
     }
 }

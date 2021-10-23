@@ -8,7 +8,6 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 
 import javax.validation.Validator;
 
-
 @Configuration
 public class ValidationConfiguration {
 

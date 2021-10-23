@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 账户、密码、登录相关接口完全重写。
+  - com.dwarfeng.acckeeper.stack.service.AccountOperateService。
+  - com.dwarfeng.acckeeper.stack.service.LoginService。
 
 #### Bug修复
 

@@ -16,32 +16,37 @@ public final class ServiceExceptionCodes {
      * 账户已经存在。
      */
     public static final ServiceException.Code ACCOUNT_ALREADY_EXISTED =
-            new ServiceException.Code(offset(0), "user already existed");
-    /**
-     * 账户不存在。
-     */
-    public static final ServiceException.Code ACCOUNT_NOT_EXISTS =
-            new ServiceException.Code(offset(10), "user not exists");
-    /**
-     * 密码错误。
-     */
-    public static final ServiceException.Code WRONG_PASSWORD =
-            new ServiceException.Code(offset(20), "wrong password");
-    /**
-     * 登录超时。
-     */
-    public static final ServiceException.Code LOGIN_EXPIRED =
-            new ServiceException.Code(offset(30), "login expired");
-    /**
-     * 登录过期。
-     */
-    public static final ServiceException.Code LOGIN_OUTDATED =
-            new ServiceException.Code(offset(40), "login outdated");
+            new ServiceException.Code(offset(0), "account already existed");
     /**
      * 账户禁用。
      */
     public static final ServiceException.Code ACCOUNT_DISABLED =
-            new ServiceException.Code(offset(50), "account disabled");
+            new ServiceException.Code(offset(10), "account disabled");
+    /**
+     * 账户不存在。
+     */
+    public static final ServiceException.Code ACCOUNT_NOT_EXISTS =
+            new ServiceException.Code(offset(20), "account not exists");
+    /**
+     * 登录超时。
+     */
+    public static final ServiceException.Code LOGIN_STATE_EXPIRED =
+            new ServiceException.Code(offset(30), "login state expired");
+    /**
+     * 登录超时。
+     */
+    public static final ServiceException.Code LOGIN_STATE_NOT_EXISTS =
+            new ServiceException.Code(offset(40), "login state not exists");
+    /**
+     * 密码错误。
+     */
+    public static final ServiceException.Code PASSWORD_INCORRECT =
+            new ServiceException.Code(offset(50), "password incorrect");
+    /**
+     * 登录过期。
+     */
+    public static final ServiceException.Code SERIAL_VERSION_INCONSISTENT =
+            new ServiceException.Code(offset(60), "serial version inconsistent");
 
     private static int offset(int i) {
         return EXCEPTION_CODE_OFFSET + i;
