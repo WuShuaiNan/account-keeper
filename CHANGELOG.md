@@ -4,6 +4,22 @@
 
 #### 功能构建
 
+- (无)
+
+#### Bug修复
+
+- (无)
+
+#### 功能移除
+
+- (无)
+
+---
+
+### Release_1.4.0_20211022_build_A
+
+#### 功能构建
+
 - 账户、密码、登录相关接口完全重写。
   - com.dwarfeng.acckeeper.stack.service.AccountOperateService。
   - com.dwarfeng.acckeeper.stack.service.LoginService。
