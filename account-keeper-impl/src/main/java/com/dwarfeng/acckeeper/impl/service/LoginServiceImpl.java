@@ -24,6 +24,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public boolean isLogin(LongIdKey loginStateKey) throws ServiceException {
+        try {
+            return loginHandler.isLogin(loginStateKey);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("判断是否登录时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
+    public LoginState getLoginState(LongIdKey loginStateKey) throws ServiceException {
+        try {
+            return loginHandler.getLoginState(loginStateKey);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("获取登录状态时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
     public LoginState login(LoginInfo loginInfo) throws ServiceException {
         try {
             return loginHandler.login(loginInfo);
@@ -38,15 +56,6 @@ public class LoginServiceImpl implements LoginService {
             loginHandler.logout(loginStateKey);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("登出时发生异常", LogLevel.WARN, sem, e);
-        }
-    }
-
-    @Override
-    public boolean isLogin(LongIdKey loginStateKey) throws ServiceException {
-        try {
-            return loginHandler.isLogin(loginStateKey);
-        } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("判断是否登录时发生异常", LogLevel.WARN, sem, e);
         }
     }
 

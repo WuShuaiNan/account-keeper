@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 登录接口增加方法。
+  - com.dwarfeng.acckeeper.stack.service.LoginService.getLoginState。
 
 #### Bug修复
 

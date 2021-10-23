@@ -15,6 +15,24 @@ import com.dwarfeng.subgrade.stack.handler.Handler;
 public interface LoginHandler extends Handler {
 
     /**
+     * 判断指定的登录状态主键是否处于有效的登录状态。
+     *
+     * @param loginStateKey 指定的登录状态主键。
+     * @return 指定的登录状态主键是否处于有效的登录状态。
+     * @throws HandlerException 处理器异常。
+     */
+    boolean isLogin(LongIdKey loginStateKey) throws HandlerException;
+
+    /**
+     * 获取指定的登录状态主键对应的登录状态。
+     *
+     * @param loginStateKey 指定登录状态主键。
+     * @return 对应的登录状态。
+     * @throws HandlerException 处理器异常。
+     */
+    LoginState getLoginState(LongIdKey loginStateKey) throws HandlerException;
+
+    /**
      * 登录。
      *
      * @param loginInfo 登录信息。
@@ -30,15 +48,6 @@ public interface LoginHandler extends Handler {
      * @throws HandlerException 处理器异常。
      */
     void logout(LongIdKey loginStateKey) throws HandlerException;
-
-    /**
-     * 判断指定的登录状态主键是否处于有效的登录状态。
-     *
-     * @param loginStateKey 指定的登录状态主键。
-     * @return 指定的登录状态主键是否处于有效的登录状态。
-     * @throws HandlerException 处理器异常。
-     */
-    boolean isLogin(LongIdKey loginStateKey) throws HandlerException;
 
     /**
      * 延长指定登录状态主键的超时日期。

@@ -15,6 +15,24 @@ import com.dwarfeng.subgrade.stack.service.Service;
 public interface LoginService extends Service {
 
     /**
+     * 判断指定的登录状态主键是否处于有效的登录状态。
+     *
+     * @param loginStateKey 指定的登录状态主键。
+     * @return 指定的登录状态主键是否处于有效的登录状态。
+     * @throws ServiceException 服务异常。
+     */
+    boolean isLogin(LongIdKey loginStateKey) throws ServiceException;
+
+    /**
+     * 获取指定的登录状态主键对应的登录状态。
+     *
+     * @param loginStateKey 指定登录状态主键。
+     * @return 对应的登录状态。
+     * @throws ServiceException 服务异常。
+     */
+    LoginState getLoginState(LongIdKey loginStateKey) throws ServiceException;
+
+    /**
      * 登录。
      *
      * @param loginInfo 登录信息。
@@ -30,15 +48,6 @@ public interface LoginService extends Service {
      * @throws ServiceException 服务异常。
      */
     void logout(LongIdKey loginStateKey) throws ServiceException;
-
-    /**
-     * 判断指定的登录状态主键是否处于有效的登录状态。
-     *
-     * @param loginStateKey 指定的登录状态主键。
-     * @return 指定的登录状态主键是否处于有效的登录状态。
-     * @throws ServiceException 服务异常。
-     */
-    boolean isLogin(LongIdKey loginStateKey) throws ServiceException;
 
     /**
      * 延长指定登录状态主键的超时日期。

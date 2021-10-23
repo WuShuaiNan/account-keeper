@@ -41,6 +41,42 @@ public class LoginHandlerImpl implements LoginHandler {
     }
 
     @Override
+    public boolean isLogin(LongIdKey loginStateKey) throws HandlerException {
+        try {
+            // 1. 判断登录状态缓存中是否有登录状态实体，如果没有，则返回 false。
+            if (!loginStateCache.exists(loginStateKey)) {
+                return false;
+            }
+
+            // 2. 获取登录状态实体。
+            LoginState loginState = loginStateCache.get(loginStateKey);
+
+            // 3. 如果过了登录超时期，则返回 false。
+            if (loginState.getExpireDate() < System.currentTimeMillis()) {
+                return false;
+            }
+
+            // 4. 根据登录状态判断账户维护服务中是否有对应的账户，如果没有，则返回 false。
+            if (!accountMaintainService.exists(loginState.getAccountKey())) {
+                return false;
+            }
+
+            // 5. 获取账户实体。
+            Account account = accountMaintainService.get(loginState.getAccountKey());
+
+            // 6. 如果账户实体被禁用，则返回 false。
+            if (!account.isEnabled()) {
+                return false;
+            }
+
+            // 7. 如果账户实体的序列版本等于登录状态的序列版本，则返回 true，否则返回 false。
+            return account.getSerialVersion() == loginState.getSerialVersion();
+        } catch (Exception e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    @Override
     public LoginState login(LoginInfo loginInfo) throws HandlerException {
         try {
             // 1. 获取主键。
@@ -74,48 +110,27 @@ public class LoginHandlerImpl implements LoginHandler {
     }
 
     @Override
-    public void logout(LongIdKey loginStateKey) throws HandlerException {
+    public LoginState getLoginState(LongIdKey loginStateKey) throws HandlerException {
         try {
-            // 1. 如果登录状态缓存中有实体，则清除实体，如果不存在，也不做特别的动作。
-            if (loginStateCache.exists(loginStateKey)) {
-                loginStateCache.delete(loginStateKey);
-            }
+            // 1. 确认登录状态主键存在。
+            makeSureLoginStateExists(loginStateKey);
+
+            // 2. 获取登录状态，并返回。
+            return loginStateCache.get(loginStateKey);
+        } catch (HandlerException e) {
+            throw e;
         } catch (Exception e) {
             throw new HandlerException(e);
         }
     }
 
     @Override
-    public boolean isLogin(LongIdKey loginStateKey) throws HandlerException {
+    public void logout(LongIdKey loginStateKey) throws HandlerException {
         try {
-            // 1. 判断登录状态缓存中是否有登录状态实体，如果没有，则返回 false。
-            if (!loginStateCache.exists(loginStateKey)) {
-                return false;
+            // 1. 如果登录状态缓存中有实体，则清除实体，如果不存在，也不做特别的动作。
+            if (loginStateCache.exists(loginStateKey)) {
+                loginStateCache.delete(loginStateKey);
             }
-
-            // 2. 获取登录状态实体。
-            LoginState loginState = loginStateCache.get(loginStateKey);
-
-            // 3. 如果过了登录超时期，则返回 false。
-            if (loginState.getExpireDate() < System.currentTimeMillis()) {
-                return false;
-            }
-
-            // 4. 根据登录状态判断账户维护服务中是否有对应的账户，如果没有，则返回 false。
-            if (!accountMaintainService.exists(loginState.getAccountKey())) {
-                return false;
-            }
-
-            // 5. 获取账户实体。
-            Account account = accountMaintainService.get(loginState.getAccountKey());
-
-            // 6. 如果账户实体被禁用，则返回 false。
-            if (!account.isEnabled()) {
-                return false;
-            }
-
-            // 7. 如果账户实体的序列版本等于登录状态的序列版本，则返回 true，否则返回 false。
-            return account.getSerialVersion() == loginState.getSerialVersion();
         } catch (Exception e) {
             throw new HandlerException(e);
         }
