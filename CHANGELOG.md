@@ -8,6 +8,9 @@
   - com.dwarfeng.acckeeper.stack.service.AccountOperateService。
   - com.dwarfeng.acckeeper.stack.service.LoginService。
 
+- 添加账户接口的预设查询。
+  - com.dwarfeng.acckeeper.stack.service.AccountMaintainService.DISPLAY_NAME_LIKE。
+
 #### Bug修复
 
 - (无)

@@ -19,6 +19,7 @@ public interface AccountMaintainService extends CrudService<StringIdKey, Account
         PresetLookupService<Account> {
 
     String ID_LIKE = "id_like";
+    String DISPLAY_NAME_LIKE = "display_name_like";
 
     /**
      * 请勿在注册用户时直接调用本方法，而是使用 {@link AccountOperateService#register(AccountRegisterInfo)}。
