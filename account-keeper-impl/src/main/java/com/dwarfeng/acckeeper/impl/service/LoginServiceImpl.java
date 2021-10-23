@@ -5,11 +5,13 @@ import com.dwarfeng.acckeeper.stack.bean.entity.LoginState;
 import com.dwarfeng.acckeeper.stack.handler.LoginHandler;
 import com.dwarfeng.acckeeper.stack.service.LoginService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
+import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -24,6 +26,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean isLogin(LongIdKey loginStateKey) throws ServiceException {
         try {
             return loginHandler.isLogin(loginStateKey);
@@ -33,6 +37,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public LoginState getLoginState(LongIdKey loginStateKey) throws ServiceException {
         try {
             return loginHandler.getLoginState(loginStateKey);
@@ -42,6 +48,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public LoginState login(LoginInfo loginInfo) throws ServiceException {
         try {
             return loginHandler.login(loginInfo);
@@ -51,6 +59,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void logout(LongIdKey loginStateKey) throws ServiceException {
         try {
             loginHandler.logout(loginStateKey);
@@ -60,6 +70,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @BehaviorAnalyse
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public LoginState postpone(LongIdKey loginStateKey) throws ServiceException {
         try {
             return loginHandler.postpone(loginStateKey);
