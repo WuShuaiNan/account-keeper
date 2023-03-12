@@ -8,6 +8,7 @@ SET logdir="%basedir%\logs"
 rem 打开目录，执行程序
 cd %basedir%
 java -classpath "lib\*;libext\*" ^
+-Xmx128 ^
 -Dlog.dir=%logdir% ^
 -Dlog.consoleEncoding=GBK ^
 -Dlog.fileEncoding=UTF-8 ^

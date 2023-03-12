@@ -8,6 +8,7 @@ cd $basedir || exit
 # shellcheck disable=SC2154
 # shellcheck disable=SC2086
 nohup /bin/java -classpath "lib/*:libext/*" \
+-Xmx128m
 -Dlog.dir=$logdir \
 -Dlog.consoleEncoding=UTF-8 \
 -Dlog.fileEncoding=UTF-8 \
