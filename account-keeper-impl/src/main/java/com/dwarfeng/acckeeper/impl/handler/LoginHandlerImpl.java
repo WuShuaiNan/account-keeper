@@ -7,7 +7,7 @@ import com.dwarfeng.acckeeper.stack.cache.LoginStateCache;
 import com.dwarfeng.acckeeper.stack.exception.*;
 import com.dwarfeng.acckeeper.stack.handler.LoginHandler;
 import com.dwarfeng.acckeeper.stack.service.AccountMaintainService;
-import com.dwarfeng.subgrade.stack.bean.key.KeyFetcher;
+import com.dwarfeng.acckeeper.stack.service.LongIdService;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.CacheException;
@@ -24,7 +24,7 @@ public class LoginHandlerImpl implements LoginHandler {
 
     private final LoginStateCache loginStateCache;
 
-    private final KeyFetcher<LongIdKey> keyFetcher;
+    private final LongIdService longIdService;
 
     @Value("${acckeeper.login.expire}")
     private long expireTimeout;
@@ -33,11 +33,11 @@ public class LoginHandlerImpl implements LoginHandler {
 
     public LoginHandlerImpl(
             AccountMaintainService accountMaintainService, LoginStateCache loginStateCache,
-            KeyFetcher<LongIdKey> keyFetcher
+            LongIdService longIdService
     ) {
         this.accountMaintainService = accountMaintainService;
         this.loginStateCache = loginStateCache;
-        this.keyFetcher = keyFetcher;
+        this.longIdService = longIdService;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class LoginHandlerImpl implements LoginHandler {
             // 5. 获取账户实体，并根据账户实体构造登录状态实体。
             Account account = accountMaintainService.get(accountKey);
             LoginState loginState = new LoginState(
-                    keyFetcher.fetchKey(), accountKey, System.currentTimeMillis() + expireTimeout,
+                    longIdService.nextLongIdKey(), accountKey, System.currentTimeMillis() + expireTimeout,
                     account.getSerialVersion()
             );
             long timeout = (long) (expireTimeout * expireTimeoutFactor);
