@@ -10,11 +10,11 @@
 
    使用git进行源码下载。
    ```
-   git clone git@github.com:DwArFeng/account-keeper.git
+   git clone git@gitee.com:wu_handsome_man/account-keeper.git
    ```
    对于中国用户，可以使用gitee进行高速下载。
    ```
-   git clone git@gitee.com:dwarfeng/account-keeper.git
+   git clone git@github.com:WuShuaiNan/account-keeper.git
    ```
    
 2. 项目打包
