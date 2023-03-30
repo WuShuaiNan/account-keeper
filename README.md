@@ -4,6 +4,10 @@
 
 ---
 
+## 项目说明
+本项目源自 @DwArFeng 的 account-keeper，本项目进行了一些个性化修改。
+原项目地址: https://github.com/DwArFeng/account-keeper
+
 ## 安装说明
 
 1. 下载源码
